@@ -3,6 +3,13 @@
 Partner-facing website foundation for Snow Development Group, a faith-driven multifamily
 development startup in Brevard County, Florida.
 
+## Founder-confirmed brand direction
+
+The first founder review confirmed the dark subtropical-green palette and serif-forward visual
+identity as ongoing brand preferences. Preserve those elements, together with the premium
+Florida-modern architectural presentation, in future refinement passes unless the founders
+explicitly direct otherwise.
+
 ## Preview locally
 
 Open `index.html` directly in a browser or serve the folder with any static file server.

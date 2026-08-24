@@ -4,15 +4,52 @@ const header = document.querySelector("[data-header]");
 const nav = document.querySelector("[data-nav]");
 const navToggle = document.querySelector("[data-nav-toggle]");
 const navLinks = nav?.querySelectorAll("a") ?? [];
+const mobileNavigation = window.matchMedia("(max-width: 820px)");
+let lockedScrollPosition = 0;
+let navigationReturnFocus = null;
 
-const setNavigation = (isOpen) => {
+const setNavigation = (isOpen, { restoreFocus = true } = {}) => {
   if (!header || !nav || !navToggle) return;
 
-  header.classList.toggle("is-open", isOpen);
-  nav.classList.toggle("is-open", isOpen);
-  navToggle.setAttribute("aria-expanded", String(isOpen));
-  navToggle.querySelector(".nav-toggle-label").textContent = isOpen ? "Close" : "Menu";
-  document.body.classList.toggle("nav-open", isOpen);
+  const shouldOpen = Boolean(isOpen && mobileNavigation.matches);
+  const wasOpen = header.classList.contains("is-open");
+
+  if (shouldOpen && !wasOpen) {
+    lockedScrollPosition = window.scrollY;
+    navigationReturnFocus = document.activeElement;
+    document.body.style.top = `-${lockedScrollPosition}px`;
+  }
+
+  header.classList.toggle("is-open", shouldOpen);
+  nav.classList.toggle("is-open", shouldOpen);
+  navToggle.setAttribute("aria-expanded", String(shouldOpen));
+  navToggle.querySelector(".nav-toggle-label").textContent = shouldOpen ? "Close" : "Menu";
+  document.body.classList.toggle("nav-open", shouldOpen);
+
+  if (mobileNavigation.matches) {
+    nav.toggleAttribute("inert", !shouldOpen);
+    nav.setAttribute("aria-hidden", String(!shouldOpen));
+  } else {
+    nav.removeAttribute("inert");
+    nav.removeAttribute("aria-hidden");
+  }
+
+  if (shouldOpen) {
+    requestAnimationFrame(() => navLinks[0]?.focus());
+    return;
+  }
+
+  if (wasOpen) {
+    document.body.style.top = "";
+    const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "auto";
+    window.scrollTo({ top: lockedScrollPosition, left: 0, behavior: "auto" });
+    document.documentElement.style.scrollBehavior = previousScrollBehavior;
+
+    if (restoreFocus && navigationReturnFocus instanceof HTMLElement) {
+      navigationReturnFocus.focus();
+    }
+  }
 };
 
 navToggle?.addEventListener("click", () => {
@@ -20,11 +57,47 @@ navToggle?.addEventListener("click", () => {
   setNavigation(isOpen);
 });
 
-navLinks.forEach((link) => link.addEventListener("click", () => setNavigation(false)));
+navLinks.forEach((link) =>
+  link.addEventListener("click", () => setNavigation(false, { restoreFocus: false })),
+);
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") setNavigation(false);
+  const isOpen = navToggle?.getAttribute("aria-expanded") === "true";
+
+  if (event.key === "Escape" && isOpen) {
+    event.preventDefault();
+    setNavigation(false);
+    return;
+  }
+
+  if (event.key !== "Tab" || !isOpen) return;
+
+  const firstNavigationLink = navLinks[0];
+  const lastNavigationLink = navLinks[navLinks.length - 1];
+
+  if (event.shiftKey && document.activeElement === firstNavigationLink) {
+    event.preventDefault();
+    navToggle.focus();
+  } else if (event.shiftKey && document.activeElement === navToggle) {
+    event.preventDefault();
+    lastNavigationLink?.focus();
+  } else if (!event.shiftKey && document.activeElement === lastNavigationLink) {
+    event.preventDefault();
+    navToggle.focus();
+  }
 });
+
+const syncNavigationMode = () => {
+  if (mobileNavigation.matches) {
+    setNavigation(false, { restoreFocus: false });
+  } else {
+    setNavigation(false, { restoreFocus: false });
+    document.body.style.top = "";
+  }
+};
+
+mobileNavigation.addEventListener("change", syncNavigationMode);
+syncNavigationMode();
 
 const updateHeader = () => header?.classList.toggle("is-scrolled", window.scrollY > 24);
 updateHeader();
@@ -138,7 +211,7 @@ form?.addEventListener("submit", async (event) => {
   try {
     await copyText(inquiry);
     formStatus.textContent =
-      "Inquiry copied. Paste it into a message to John, Coby, or your Snow Development Group contact.";
+      "Inquiry copied. Paste it into a message to Jon, Coby, or your Snow Development Group contact.";
   } catch {
     formStatus.textContent =
       "Copying is unavailable in this browser. Please select your message and share it directly with your Snow Development Group contact.";
