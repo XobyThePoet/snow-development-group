@@ -171,50 +171,55 @@ if (storyChapters.length && storyImages.length) {
 
 const form = document.querySelector("[data-interest-form]");
 const formStatus = document.querySelector("[data-form-status]");
+const formButton = form?.querySelector('button[type="submit"]');
+const formNote = form?.querySelector(".form-note");
+const formEndpoint = "https://formspree.io/f/xrpzwqnd";
 
-const copyText = async (text) => {
-  if (navigator.clipboard && window.isSecureContext) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  const helper = document.createElement("textarea");
-  helper.value = text;
-  helper.setAttribute("readonly", "");
-  helper.style.position = "fixed";
-  helper.style.opacity = "0";
-  document.body.appendChild(helper);
-  helper.select();
-  const copied = document.execCommand("copy");
-  helper.remove();
-
-  if (!copied) throw new Error("Copy unavailable");
-};
+if (formButton) formButton.textContent = "Send inquiry";
+if (formNote) {
+  formNote.textContent =
+    "Your inquiry will be sent directly to Snow Development Group. We’ll use the information you provide only to respond to your inquiry.";
+}
 
 form?.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!form.reportValidity()) return;
 
   const data = new FormData(form);
-  const inquiry = [
-    "Snow Development Group — Inquiry",
-    "",
-    `Interest: ${data.get("interest")}`,
-    `Name: ${data.get("name")}`,
-    `Organization: ${data.get("organization") || "Not provided"}`,
-    `Email: ${data.get("email")}`,
-    "",
-    "Message:",
-    data.get("message"),
-  ].join("\n");
+  const originalButtonText = formButton?.textContent ?? "Send inquiry";
+
+  if (formButton) {
+    formButton.disabled = true;
+    formButton.textContent = "Sending…";
+  }
+  if (formStatus) formStatus.textContent = "Sending your inquiry…";
 
   try {
-    await copyText(inquiry);
-    formStatus.textContent =
-      "Inquiry copied. Paste it into a message to Jon, Coby, or your Snow Development Group contact.";
+    const response = await fetch(formEndpoint, {
+      method: "POST",
+      body: data,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (!response.ok) throw new Error("Form submission failed");
+
+    form.reset();
+    if (formStatus) {
+      formStatus.textContent =
+        "Thank you. Your inquiry has been sent to Snow Development Group.";
+    }
   } catch {
-    formStatus.textContent =
-      "Copying is unavailable in this browser. Please select your message and share it directly with your Snow Development Group contact.";
+    if (formStatus) {
+      formStatus.textContent =
+        "We couldn’t send your inquiry right now. Please try again in a moment.";
+    }
+  } finally {
+    if (formButton) {
+      formButton.disabled = false;
+      formButton.textContent = originalButtonText;
+    }
   }
 });
 
