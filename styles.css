@@ -2630,3 +2630,592 @@ h3 {
     font-size: 0.84rem;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Cinematic scroll prototype
+   Scoped to the body class so the structural experiment remains reversible.
+   -------------------------------------------------------------------------- */
+
+.cinematic-prototype .hero {
+  min-height: 100svh;
+}
+
+.scroll-story {
+  overflow: clip;
+  background: var(--cream);
+}
+
+.story-intro {
+  padding-block: clamp(7rem, 12vw, 12rem) clamp(5rem, 8vw, 8rem);
+}
+
+.story-intro h2 {
+  max-width: 950px;
+}
+
+.story-intro .lead {
+  max-width: 760px;
+  margin-bottom: clamp(3.5rem, 6vw, 5.5rem);
+  color: var(--ink-soft);
+}
+
+.story-intro .lead strong {
+  color: var(--forest);
+  font-weight: 400;
+}
+
+.story-facts {
+  display: grid;
+  max-width: 1060px;
+  border-top: 1px solid var(--line);
+  padding-top: 1.35rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(2rem, 6vw, 6rem);
+}
+
+.story-facts p {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  line-height: 1.35;
+}
+
+.story-facts span {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--forest-light);
+  font-family: var(--sans);
+  font-size: 0.61rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.story-intro-note,
+.story-disclosure {
+  max-width: 860px;
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  line-height: 1.65;
+}
+
+.story-intro-note {
+  margin: 2rem 0 0;
+}
+
+.story-track {
+  position: relative;
+}
+
+.story-visual {
+  display: none;
+}
+
+.story-mobile-media {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 2.5rem;
+  aspect-ratio: 16 / 10;
+  background: var(--paper-deep);
+}
+
+.story-mobile-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.story-chapter:nth-child(1) .story-mobile-media img {
+  object-position: 52% 50%;
+}
+
+.story-chapter:nth-child(2) .story-mobile-media img {
+  object-position: 48% 50%;
+}
+
+.story-chapter:nth-child(3) .story-mobile-media img {
+  object-position: 50% 52%;
+}
+
+.story-chapter:nth-child(4) .story-mobile-media img {
+  object-position: 43% 50%;
+}
+
+.story-mobile-media figcaption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(29, 47, 37, 0.9);
+  color: rgba(251, 248, 241, 0.8);
+  padding: 0.8rem 1rem;
+  font-size: 0.56rem;
+  letter-spacing: 0.11em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+.story-chapter {
+  padding-block: clamp(4.5rem, 9vw, 7rem);
+}
+
+.story-chapter + .story-chapter {
+  border-top: 1px solid var(--line);
+}
+
+.chapter-copy {
+  max-width: 640px;
+}
+
+.chapter-number {
+  margin-bottom: 1.2rem;
+  color: var(--forest-light);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.chapter-copy h3 {
+  max-width: 580px;
+  margin-bottom: 1.3rem;
+  font-size: clamp(2.7rem, 6vw, 4.8rem);
+  line-height: 0.98;
+}
+
+.chapter-copy > p:last-child {
+  max-width: 540px;
+  margin-bottom: 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+}
+
+.story-disclosure {
+  margin-top: clamp(2rem, 4vw, 4rem);
+  margin-bottom: 0;
+  border-top: 1px solid var(--line);
+  padding-block: 1.3rem clamp(6rem, 10vw, 10rem);
+}
+
+/* Mission becomes a quiet pause between the visual journey and partner brief. */
+.cinematic-prototype .mission-pattern {
+  opacity: 0.38;
+}
+
+.cinematic-prototype .mission-inner {
+  padding-block: clamp(7rem, 10vw, 10rem);
+}
+
+.cinematic-prototype .mission-values {
+  margin-top: clamp(3.5rem, 6vw, 5.5rem);
+  border-bottom: 0;
+}
+
+.cinematic-prototype .mission-values > div,
+.cinematic-prototype .mission-values > div:first-child {
+  min-height: 0;
+  border-right: 0;
+  padding: 1.5rem clamp(1rem, 2vw, 2rem) 0 0;
+}
+
+/* The partner journey reads as an editorial brief rather than a card system. */
+.cinematic-prototype .partnership {
+  padding-top: clamp(8rem, 12vw, 12rem);
+  padding-bottom: clamp(6rem, 9vw, 9rem);
+}
+
+.cinematic-prototype .opportunity-card {
+  border-top-width: 2px;
+  background: transparent;
+  box-shadow: none;
+  padding: 1.5rem 0 0;
+}
+
+.cinematic-prototype .status-note {
+  border: 0;
+  border-left: 2px solid var(--sage);
+  background: transparent;
+  padding: 0 0 0 1rem;
+}
+
+.partner-approach {
+  display: grid;
+  align-items: start;
+  margin-top: clamp(7rem, 11vw, 11rem);
+  grid-template-columns: minmax(280px, 0.7fr) minmax(440px, 1fr);
+  gap: clamp(4rem, 9vw, 9rem);
+}
+
+.partner-approach h3 {
+  max-width: 480px;
+  margin-bottom: 0;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  line-height: 1.03;
+}
+
+.partner-approach-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: partner-step;
+}
+
+.partner-approach-list li {
+  display: grid;
+  align-items: baseline;
+  border-top: 1px solid var(--line);
+  padding-block: 1.35rem;
+  counter-increment: partner-step;
+  grid-template-columns: 2.7rem minmax(150px, 0.58fr) 1fr;
+  gap: 1rem;
+}
+
+.partner-approach-list li::before {
+  color: var(--sage);
+  content: "0" counter(partner-step);
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.partner-approach-list strong {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.partner-approach-list span {
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+
+.collaboration-line {
+  display: grid;
+  margin: 1.5rem 0 0;
+  border-block: 1px solid var(--line);
+  padding-block: 1.1rem;
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  grid-column: 1 / -1;
+  grid-template-columns: 0.42fr 1fr;
+  gap: 2rem;
+}
+
+.collaboration-line span {
+  color: var(--forest-light);
+  font-family: var(--sans);
+  font-size: 0.61rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.partner-contact {
+  display: grid;
+  margin-top: clamp(7rem, 11vw, 11rem);
+  background: var(--forest);
+  color: var(--cream);
+  padding: clamp(3rem, 6vw, 6rem);
+  grid-template-columns: minmax(0, 0.8fr) minmax(420px, 0.72fr);
+  gap: clamp(3rem, 8vw, 8rem);
+}
+
+.partner-contact .eyebrow {
+  color: #b8c7b9;
+}
+
+.partner-contact .contact-copy h2 {
+  font-size: clamp(2.8rem, 4.6vw, 4.8rem);
+}
+
+.partner-contact .contact-audiences {
+  margin-top: 2rem;
+  border-top: 1px solid var(--line-light);
+  padding-top: 1rem;
+  color: rgba(251, 248, 241, 0.58);
+  font-size: 0.78rem;
+}
+
+/* Compact, truthful leadership handoff into the footer. */
+.cinematic-prototype .leadership {
+  padding-block: clamp(6rem, 8vw, 8rem);
+}
+
+.cinematic-prototype .leadership-heading h2 {
+  max-width: 600px;
+  font-size: clamp(2.8rem, 4.5vw, 4.7rem);
+}
+
+.cinematic-prototype .leadership-compact {
+  margin-top: clamp(3.5rem, 6vw, 5.5rem);
+  border-block: 1px solid var(--line);
+}
+
+.cinematic-prototype .leadership-compact .person,
+.cinematic-prototype .leadership-compact .person:first-child {
+  min-height: 0;
+  align-items: center;
+  border-top: 0;
+  padding: 2rem;
+  grid-template-columns: 66px 1fr;
+  gap: 1.5rem;
+}
+
+.cinematic-prototype .leadership-compact .person:first-child {
+  padding-left: 0;
+}
+
+.cinematic-prototype .leadership-compact .person-monogram {
+  width: 58px;
+  height: 76px;
+  font-size: 2rem;
+}
+
+.cinematic-prototype .leadership-compact .person-copy h3 {
+  font-size: 2rem;
+}
+
+.cinematic-prototype .leadership-compact .person-role {
+  margin-bottom: 0.6rem;
+}
+
+.cinematic-prototype .leadership-compact .person-description {
+  max-width: 460px;
+  margin-bottom: 0;
+  font-size: 0.82rem;
+}
+
+.cinematic-prototype .leadership-note {
+  border-top: 0;
+  padding-top: 1.2rem;
+}
+
+.cinematic-prototype .footer-main {
+  min-height: 145px;
+}
+
+@media (min-width: 1025px) {
+  .story-track {
+    display: grid;
+    width: min(1600px, calc(100vw - 64px));
+    grid-template-columns: minmax(0, 1.7fr) minmax(300px, 0.65fr);
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+
+  .story-visual {
+    position: sticky;
+    top: 0;
+    display: block;
+    height: 100svh;
+    align-self: start;
+  }
+
+  .story-stage {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: min(68svh, 680px);
+    overflow: hidden;
+    background: var(--forest);
+    box-shadow: 0 32px 90px rgba(40, 45, 37, 0.12);
+    transform: translateY(-50%);
+  }
+
+  .story-frame {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.025);
+    transition: opacity 700ms ease, transform 1400ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .story-frame.is-active {
+    z-index: 2;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .story-frame figcaption {
+    position: absolute;
+    z-index: 3;
+    right: 1.15rem;
+    bottom: 1.1rem;
+    color: rgba(251, 248, 241, 0.74);
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .story-stage::after {
+    position: absolute;
+    z-index: 4;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 22%;
+    background: linear-gradient(0deg, rgba(21, 31, 25, 0.54), transparent);
+    content: "";
+    pointer-events: none;
+  }
+
+  .story-stage-status {
+    position: absolute;
+    z-index: 5;
+    right: 1.15rem;
+    bottom: 1rem;
+    left: 1.15rem;
+    display: flex;
+    justify-content: space-between;
+    color: rgba(251, 248, 241, 0.76);
+    font-size: 0.54rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .story-frame figcaption {
+    display: none;
+  }
+
+  .story-chapter {
+    display: flex;
+    min-height: 100svh;
+    align-items: center;
+    border: 0 !important;
+    padding: 12vh 0;
+  }
+
+  .story-mobile-media {
+    display: none;
+  }
+
+  .story-chapter .chapter-copy {
+    opacity: 0.32;
+    transform: translateY(18px);
+    transition: opacity 500ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .story-chapter.is-active .chapter-copy {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .chapter-copy h3 {
+    font-size: clamp(2.8rem, 3.7vw, 4.5rem);
+  }
+}
+
+@media (max-width: 1024px) {
+  .story-intro {
+    padding-bottom: 3rem;
+  }
+
+  .story-track {
+    width: 100%;
+  }
+
+  .story-chapter {
+    width: var(--shell);
+    margin-inline: auto;
+  }
+
+  .cinematic-prototype .mission-inner,
+  .cinematic-prototype .partnership-layout,
+  .partner-approach,
+  .partner-contact {
+    grid-template-columns: 1fr;
+  }
+
+  .cinematic-prototype .mission-inner,
+  .cinematic-prototype .partnership-layout,
+  .partner-approach,
+  .partner-contact {
+    gap: 3rem;
+  }
+
+  .cinematic-prototype .mission-values {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cinematic-prototype .mission-values > div,
+  .cinematic-prototype .mission-values > div:first-child {
+    border-bottom: 0;
+    padding-block: 1.5rem 0;
+  }
+
+  .partner-approach-list {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .partner-contact {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .story-facts {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+
+  .story-mobile-media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .chapter-copy h3 {
+    font-size: clamp(2.5rem, 12vw, 3.7rem);
+  }
+
+  .cinematic-prototype .mission-values {
+    grid-template-columns: 1fr;
+  }
+
+  .partner-approach-list li {
+    grid-template-columns: 2.4rem 1fr;
+  }
+
+  .partner-approach-list li span {
+    margin-top: 0.35rem;
+    grid-column: 2;
+  }
+
+  .collaboration-line {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .partner-contact {
+    padding: 2.2rem 1.4rem;
+  }
+
+  .cinematic-prototype .leadership-heading {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .cinematic-prototype .leadership-compact {
+    grid-template-columns: 1fr;
+  }
+
+  .cinematic-prototype .leadership-compact .person,
+  .cinematic-prototype .leadership-compact .person:first-child {
+    border-right: 0;
+    padding-inline: 0;
+  }
+
+  .cinematic-prototype .leadership-compact .person + .person {
+    border-top: 1px solid var(--line);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-frame,
+  .story-chapter .chapter-copy,
+  .story-chapter.is-active .chapter-copy {
+    transform: none;
+  }
+}

@@ -29,6 +29,8 @@ The page includes five named replacement slots using `data-concept-slot` attribu
 4. `04-pool-amenity` — shared amenity story using `snow-concept-02-pool-amenity.png`.
 5. `05-wellness-trail` — stewardship and wellness story using `snow-concept-04-wellness-trail.png`.
 
-The source files and full prompt manifest remain in `assets/concepts/`. Replace an image source in
-place to preserve the slot structure, captions, fallbacks, and responsive crop behavior. Custom
-imagery should retain the visible conceptual-image disclosure until the project design is established.
+The four middle views form a desktop sticky-scroll sequence and repeat as a conventional mobile
+image-and-text stack. When replacing one of these renderings, update both matching image references;
+the adjacent HTML comments identify each pair. The source files and full prompt manifest remain in
+`assets/concepts/`. Custom imagery should retain the visible conceptual-image disclosure until the
+project design is established.
